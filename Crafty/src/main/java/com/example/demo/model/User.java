@@ -14,7 +14,6 @@ public class User {
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
 private Long id;
-
 private String nome;
 private String email;
 private String password;
@@ -22,6 +21,7 @@ private String cognome;
 private String telefono;
 private String indirizzo;
 private String role;
+private String carrello;
 
 @OneToMany(mappedBy="user")
 private List<Ordine> ordine;
@@ -33,6 +33,19 @@ private List<OrderDetails> orderDetails;
 private List<Review> review;
 
 //getters e setters
+
+public String getCarrello() {
+	return carrello;
+}
+public void setCarrello(String carrello) {
+	this.carrello = carrello;
+}
+public List<Ordine> getOrdine() {
+	return ordine;
+}
+public void setOrdine(List<Ordine> ordine) {
+	this.ordine = ordine;
+}
 public List<OrderDetails> getOrderDetails() {
 	return orderDetails;
 }

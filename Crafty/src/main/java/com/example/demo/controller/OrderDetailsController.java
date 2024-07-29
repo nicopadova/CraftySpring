@@ -10,13 +10,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.exception.UnauthorizedException;
 import com.example.demo.model.OrderDetails;
+import com.example.demo.model.Token;
+import com.example.demo.model.User;
 import com.example.demo.repository.OrderDetailsRepository;
+import com.example.demo.service.TokenService;
+import com.example.demo.service.UserService;
 
 @CrossOrigin
 @RestController
@@ -24,36 +30,69 @@ import com.example.demo.repository.OrderDetailsRepository;
 public class OrderDetailsController {
 	
 	@Autowired
+	private UserService userService;
+	@Autowired
+	private TokenService tokenService;
+	
+	@Autowired
 	private OrderDetailsRepository orderDetailsRepository;
 	
-	@GetMapping
+	/*@GetMapping
 	public List<OrderDetails> getAllOrderDetails(){
 		return orderDetailsRepository.findAll();
-	}
+	}*/ // non dovrebbe esserci utile
 	
+	//per l'utente loggato
 	@PostMapping
-	public OrderDetails createOrderDetails(@RequestBody OrderDetails orderDetails){
+	public OrderDetails createOrderDetails(@RequestBody OrderDetails orderDetails, @RequestHeader("Authorization") String token,@PathVariable Long i){
+		Token authToken = tokenService.findByToken(token);
+		 if (authToken != null) {
 		return orderDetailsRepository.save(orderDetails);
+		 } else {
+	            throw new UnauthorizedException();
+	        }
 	}
 	
-	@GetMapping("/{id}")
+	/*@GetMapping("/{id}")
 	public OrderDetails getOrderDetailsById(@PathVariable Long id) {
 		return orderDetailsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException ("Destinazione non trovata"));
-	}
+	} */ //non dovrebbe esserci utile
 	
+	//per l'admin
 	@PutMapping("/{id}")
-	public OrderDetails updateOrderDetails(@PathVariable Long id, @RequestBody OrderDetails orderDetailsDetails) {
-		OrderDetails orderDetails = orderDetailsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException ("Destinazione non trovata"));
-		orderDetails.setPrezzo(orderDetailsDetails.getPrezzo());
-		orderDetails.setQnt(orderDetailsDetails.getQnt());
-		orderDetails.setProduct(orderDetailsDetails.getProduct());
-		return orderDetailsRepository.save(orderDetails);
+	public OrderDetails updateOrderDetails(@PathVariable Long id, @RequestBody OrderDetails orderDetailsDetails,  @RequestHeader("Authorization") String token) {
+		 Token authToken = tokenService.findByToken(token);
+		 if (authToken != null) {
+	    	   User user = userService.getUserById(authToken.getUserId());
+	           if ("ADMIN".equals(user.getRole())) { 
+				OrderDetails orderDetails = orderDetailsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException ("Dettaglio ordine non trovato"));
+				orderDetails.setPrezzo(orderDetailsDetails.getPrezzo());
+				orderDetails.setQnt(orderDetailsDetails.getQnt());
+				orderDetails.setProduct(orderDetailsDetails.getProduct());
+				return orderDetailsRepository.save(orderDetails);
+	           } else {
+	               throw new UnauthorizedException();
+	           }
+	       } else {
+	       	  throw new UnauthorizedException();
+	       }
 	}
 	
+	//riservato all'admin
 	@DeleteMapping("/{id}")
-	public void deleteOrderDetails(@PathVariable Long id) {
-		OrderDetails orderDetails = orderDetailsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException ("Destinazione non trovata"));
-		orderDetailsRepository.delete(orderDetails);
+	public void deleteOrderDetails(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+		  Token authToken = tokenService.findByToken(token);
+	       if (authToken != null) {
+	    	   User user = userService.getUserById(authToken.getUserId());
+	           if ("ADMIN".equals(user.getRole())) { 
+				OrderDetails orderDetails = orderDetailsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException ("Dettaglio ordine non trovato"));
+				orderDetailsRepository.delete(orderDetails);
+	           } else {
+	               throw new UnauthorizedException();
+	           }
+	       } else {
+	       	  throw new UnauthorizedException();
+	       }
 	}
 	
 	@GetMapping("/searchByUserId")
