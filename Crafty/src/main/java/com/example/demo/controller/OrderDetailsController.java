@@ -37,14 +37,11 @@ public class OrderDetailsController {
 	@Autowired
 	private OrderDetailsRepository orderDetailsRepository;
 	
-	/*@GetMapping
-	public List<OrderDetails> getAllOrderDetails(){
-		return orderDetailsRepository.findAll();
-	}*/ // non dovrebbe esserci utile
+	
 	
 	//per l'utente loggato
 	@PostMapping
-	public OrderDetails createOrderDetails(@RequestBody OrderDetails orderDetails, @RequestHeader("Authorization") String token,@PathVariable Long i){
+	public OrderDetails createOrderDetails(@RequestBody OrderDetails orderDetails, @RequestHeader("Authorization") String token){
 		Token authToken = tokenService.findByToken(token);
 		 if (authToken != null) {
 		return orderDetailsRepository.save(orderDetails);
@@ -53,10 +50,10 @@ public class OrderDetailsController {
 	        }
 	}
 	
-	/*@GetMapping("/{id}")
+	@GetMapping("/{id}")
 	public OrderDetails getOrderDetailsById(@PathVariable Long id) {
-		return orderDetailsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException ("Destinazione non trovata"));
-	} */ //non dovrebbe esserci utile
+		return orderDetailsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException (" non trovata"));
+	} 
 	
 	//per l'admin
 	@PutMapping("/{id}")
@@ -69,6 +66,9 @@ public class OrderDetailsController {
 				orderDetails.setPrezzo(orderDetailsDetails.getPrezzo());
 				orderDetails.setQnt(orderDetailsDetails.getQnt());
 				orderDetails.setProduct(orderDetailsDetails.getProduct());
+				orderDetails.setOrdine(orderDetailsDetails.getOrdine());
+				orderDetails.setUser(orderDetailsDetails.getUser());
+				
 				return orderDetailsRepository.save(orderDetails);
 	           } else {
 	               throw new UnauthorizedException();

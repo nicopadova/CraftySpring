@@ -52,17 +52,18 @@ public class OrderDetails {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Ordine getOrder() {
-		return ordine;
-	}
-	public void setOrder(Ordine ordine) {
-		this.ordine = ordine;
-	}
+	
 	public Product getProduct() {
 		return product;
 	}
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	public Ordine getOrdine() {
+		return ordine;
+	}
+	public void setOrdine(Ordine ordine) {
+		this.ordine = ordine;
 	}
 	
 	

@@ -131,7 +131,7 @@ public class UserController {
 		return userService.getUserByEmail(email);
 	}
 	
-	@GetMapping("/searchByEmailAndPassword")
+	@GetMapping("/login")
 	public List <User> getUserByEmailAndPassword(@RequestParam String email,@RequestParam  String password) {
 		return userService.getUserByEmailAndPassword(email, password);
 	}

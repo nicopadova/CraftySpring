@@ -37,7 +37,7 @@ public class OrdineController {
 	
 	//riservato a admin
 	@GetMapping
-	public List<Ordine> getAllOrdine(@PathVariable Long id, @RequestHeader("Authorization") String token){
+	public List<Ordine> getAllOrdine(@RequestHeader("Authorization") String token){
 		 Token authToken = tokenService.findByToken(token);
 	       if (authToken != null) {
 	    	   User user = userService.getUserById(authToken.getUserId());
