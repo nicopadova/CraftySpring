@@ -40,24 +40,6 @@ public String getCarrello() {
 public void setCarrello(String carrello) {
 	this.carrello = carrello;
 }
-public List<Ordine> getOrdine() {
-	return ordine;
-}
-public void setOrdine(List<Ordine> ordine) {
-	this.ordine = ordine;
-}
-public List<OrderDetails> getOrderDetails() {
-	return orderDetails;
-}
-public void setOrderDetails(List<OrderDetails> orderDetails) {
-	this.orderDetails = orderDetails;
-}
-public List<Review> getReview() {
-	return review;
-}
-public void setReview(List<Review> review) {
-	this.review = review;
-}
 
 public Long getId() {
 	return id;

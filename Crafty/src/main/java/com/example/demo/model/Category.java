@@ -20,13 +20,7 @@ public class Category {
 	private List<Product> product; 
 	
 	//getters e setters
-	public List<Product> getProduct() {
-		return product;
-	}
-
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
+	
 
 	public Long getId() {
 		return id;

@@ -35,15 +35,7 @@ public class Product {
 	@OneToMany(mappedBy="product")
 	private List<OrderDetails> orderDetails;
 	
-
 	//getters e setters
-	public List<Review> getReview() {
-		return review;
-	}
-
-	public void setReview(List<Review> review) {
-		this.review = review;
-	}
 
 	public Long getId() {
 		return id;
@@ -51,6 +43,14 @@ public class Product {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public String getNome() {
@@ -61,15 +61,6 @@ public class Product {
 		this.nome = nome;
 	}
 
-	public String getDescrizione() {
-		return descrizione;
-	}
-
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-
-	
 	public Integer getQnt() {
 		return qnt;
 	}
@@ -86,6 +77,14 @@ public class Product {
 		this.prezzo = prezzo;
 	}
 
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
 	public Category getCategory() {
 		return category;
 	}
@@ -93,23 +92,6 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
-	public List<OrderDetails> getOrderDetails() {
-		return orderDetails;
-	}
-
-	public void setOrderDetails(List<OrderDetails> orderDetails) {
-		this.orderDetails = orderDetails;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-	
 	
 
 }

@@ -52,13 +52,6 @@ public class Ordine {
 		this.user = user;
 	}
 
-	public List<OrderDetails> getOrderDetails() {
-		return orderDetails;
-	}
-
-	public void setOrderDetails(List<OrderDetails> orderDetails) {
-		this.orderDetails = orderDetails;
-	}
 
 	//getters e setters
 	
