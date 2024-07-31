@@ -17,7 +17,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
+	private String img;
 	private String nome;
 	private Integer qnt;
 	private Double prezzo;
@@ -100,6 +100,14 @@ public class Product {
 
 	public void setOrderDetails(List<OrderDetails> orderDetails) {
 		this.orderDetails = orderDetails;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 	
