@@ -78,6 +78,7 @@ public class ProductController {
 					product.setQnt(productDetails.getQnt());
 					product.setImg(productDetails.getImg());
 					product.setTag(productDetails.getTag());
+					product.setVenditore(productDetails.getVenditore());
 					return productRepository.save(product);
 		           } else {
 		               throw new UnauthorizedException();
