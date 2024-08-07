@@ -21,6 +21,7 @@ public class Product {
 	private String nome;
 	private Integer qnt;
 	private Double prezzo;
+	private String tag;
 	
 	@Column(columnDefinition = "TEXT")
 	private String descrizione;
@@ -91,6 +92,14 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 	
 
