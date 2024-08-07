@@ -22,6 +22,7 @@ public class Product {
 	private Integer qnt;
 	private Double prezzo;
 	private String tag;
+	private String venditore;
 	
 	@Column(columnDefinition = "TEXT")
 	private String descrizione;
@@ -100,6 +101,14 @@ public class Product {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+	public String getVenditore() {
+		return venditore;
+	}
+
+	public void setVenditore(String venditore) {
+		this.venditore = venditore;
 	}
 	
 
