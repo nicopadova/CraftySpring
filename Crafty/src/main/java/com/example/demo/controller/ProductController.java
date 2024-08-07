@@ -36,6 +36,7 @@ public class ProductController {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	
 	@GetMapping
 	public List<Product> getAllProduct(){
 		return productRepository.findAll();
@@ -76,6 +77,7 @@ public class ProductController {
 					product.setPrezzo(productDetails.getPrezzo());
 					product.setQnt(productDetails.getQnt());
 					product.setImg(productDetails.getImg());
+					product.setTag(productDetails.getTag());
 					return productRepository.save(product);
 		           } else {
 		               throw new UnauthorizedException();
@@ -107,11 +109,11 @@ public class ProductController {
 		return productRepository.findByNome(nome);
 	}
 	
-	@GetMapping("/searchByNomePart")
-	public List<Product> getProductByNomeContaining(@RequestParam String nomePart){
-		return productRepository.findByNomeContaining(nomePart);
+	
+	@GetMapping("/searchProducts")
+	public List <Product> searchProducts (@RequestParam String searchTerm){
+		return productRepository.findByNomeContainingOrDescrizioneContaining(searchTerm, searchTerm);
 	}
-		
 	
 }
 
