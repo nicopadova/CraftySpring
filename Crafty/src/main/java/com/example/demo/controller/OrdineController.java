@@ -83,6 +83,7 @@ public class OrdineController {
 	           if ("ADMIN".equals(user.getRole())) { 
 				Ordine ordine = ordineRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException ("Ordine non trovato"));
 				ordine.setData(ordineDetails.getData());
+				ordine.setStato(ordineDetails.getStato());
 				return ordineRepository.save(ordine);
 	           } else {
 	               throw new UnauthorizedException();

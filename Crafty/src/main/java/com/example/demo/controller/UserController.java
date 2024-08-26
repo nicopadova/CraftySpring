@@ -109,6 +109,8 @@ public class UserController {
 		user.setPassword(userDetails.getPassword());
 		user.setRole(userDetails.getRole());
 		user.setCarrello(userDetails.getCarrello());
+		user.setTelefono(userDetails.getTelefono());
+		user.setIndirizzo(userDetails.getIndirizzo());
 		return userService.crateUser(user);
         } else {
         	 throw new UnauthorizedException();
