@@ -20,7 +20,16 @@ public class Ordine {
 	private Long id;
 	
 	private Date data;
+	private String stato;
 	
+	public String getStato() {
+		return stato;
+	}
+
+	public void setStato(String stato) {
+		this.stato = stato;
+	}
+
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
