@@ -72,10 +72,6 @@ public class UserController {
         }
     }
 	
-	@PostMapping
-	public User crateUser (@RequestBody User user) {
-		return userService.crateUser(user);
-	}
 	
 	@GetMapping("/{id}")
 	public User getUserById(@RequestHeader("Authorization") String token,@PathVariable Long id){
@@ -92,8 +88,6 @@ public class UserController {
         }
     }
             
-            
-	
 	
 	@PutMapping("/{id}")
 	public User updateUser(@PathVariable  Long id,@RequestBody User userDetails,@RequestHeader("Authorization") String token) {
@@ -115,6 +109,17 @@ public class UserController {
         } else {
         	 throw new UnauthorizedException();
         }
+	}
+	
+	@PostMapping
+	public User crateUser (@RequestBody User user, @RequestParam String email) {
+		User us = userService.getUserByEmail(email);
+		if (us != null) {
+			throw new UnauthorizedException();
+		} else {
+			 
+			 return userService.crateUser(user);
+		 }
 	}
 	
 	@DeleteMapping("/{id}")
