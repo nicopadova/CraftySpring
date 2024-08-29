@@ -42,7 +42,7 @@ public class ReviewController {
 		 
 	}
 	// per creare una nuova recensione devi avere fatto l'accesso
-	@PostMapping
+	@PostMapping("/{id}")
 	public Review createReview(@RequestBody Review review,@RequestHeader("Authorization") String token,@PathVariable Long id) {
 		Token authToken = tokenService.findByToken(token);
 		 if (authToken != null) {
@@ -108,5 +108,9 @@ public class ReviewController {
 		return reviewRepository.findByPunteggio(punteggio);
 	}
 	
-
+	@GetMapping("/searchByProductId")
+	public List<Review> getReviewByProductId(@RequestParam Long product_id){
+		return reviewRepository.findByProductId(product_id);
+	}
+	
 }
